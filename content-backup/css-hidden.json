@@ -1,1 +1,0 @@
-{"path": "wp-content/themes/kadence-child/style.css", "old_string": "/* Unit toggle \u2014 segmented control */\n.imc-calc__unit-toggle {", "new_string": "/* Hidden unit fields must stay hidden even if a layout rule sets display. */\n.imc-calc [hidden] {\n\tdisplay: none !important;\n}\n\n/* Unit toggle \u2014 segmented control */\n.imc-calc__unit-toggle {"}
