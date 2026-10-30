@@ -55,7 +55,7 @@ I found no store or registry listing for IMC.
 - ClawHub: https://clawhub.ai/nbkdevs/bmi-calculator
 - Smithery: https://smithery.ai/skills/nbkdevs/bmi-calculator (dofollow)
 
-## Packages built 30 Oct 2026 (not published)
+## Packages built 30 Oct 2026 (registries now published, see below)
 
 All packages: version 1.0.0, MIT, author "IMC Calculadora", homepage https://imccalculadora.app/, README Links anchor [Calculadora IMC](https://imccalculadora.app/). Same spec and test vectors in every language (WHO classes, BMI rounded to 1 decimal before classifying, healthy range 18.5–24.9, metric/imperial, comma decimals, ES/EN). Names checked free on 30 Oct. Each folder has a LISTING.md with the publish command. Nothing was published.
 
@@ -74,3 +74,22 @@ All packages: version 1.0.0, MIT, author "IMC Calculadora", homepage https://imc
 | Product Hunt | "Calculadora IMC" (packages/producthunt/LISTING.md) | – | https://www.producthunt.com/ | draft; tagline 52 chars |
 
 Screenshots for listings: /workspace/uploads/imc-screens/ (box only).
+
+## Registry packages published 30 Oct 2026 (~18:35–18:40 PKT), v1.0.0
+
+Owner approved publishing. Link checked on the rendered live page; "dofollow" = no nofollow/ugc on the rel attribute.
+
+| Registry | Package | Live URL | HTTP | Link to https://imccalculadora.app/ | Link type |
+|---|---|---|---|---|---|
+| npm | imc-calculadora | https://www.npmjs.com/package/imc-calculadora | 200 (browser) | Homepage sidebar + README anchor | nofollow (sidebar `noopener noreferrer nofollow`, README `nofollow`). npm also shows its own staging placeholder version 0.0.0-stage; latest = 1.0.0 |
+| PyPI | imc-calculadora | https://pypi.org/project/imc-calculadora/ | 200 | Homepage/Documentation project links + README anchor | nofollow |
+| crates.io | imc-calculadora | https://crates.io/crates/imc-calculadora | 200 | Homepage sidebar + README anchor | **dofollow** sidebar homepage (no rel); README `nofollow noopener noreferrer` |
+| pub.dev | imc_calculadora | https://pub.dev/packages/imc_calculadora | 200 | Homepage sidebar + README anchor | ugc |
+| NuGet | ImcCalculadora | https://www.nuget.org/packages/ImcCalculadora | 200 | Project website + README anchor | nofollow (search index/flat container still catching up at check time) |
+| RubyGems | imc_calculadora | https://rubygems.org/gems/imc_calculadora | 200 | Homepage sidebar | nofollow |
+| Docker Hub | iamnazzal/imc-calculadora:1.0.0, latest (amd64+arm64) | https://hub.docker.com/r/iamnazzal/imc-calculadora | 200 | Overview = README, anchor "Calculadora IMC"; OCI url label | **dofollow** (`noopener noreferrer`) |
+| Packagist | imccalculadora/imc-calculadora (root composer.json) | https://packagist.org/packages/submit | – | – | **Blocked:** no Packagist API token on the box; submit https://github.com/nbkdevs/imc-calculadora in the browser |
+
+Docker push: daemonless (go-containerregistry), user iamnazzal. Index digest sha256:62fe0c6c97c5678818c2417d5b090f35b26feced9eb3a37a7ce04b0474501e0b (amd64 sha256:297ec480…, arm64 sha256:aec2fa51…). Hub short description and overview set via the Hub API.
+
+Not uploaded yet (waiting for the owner): HF Space, SourceForge, Product Hunt.
