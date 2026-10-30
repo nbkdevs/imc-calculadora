@@ -97,3 +97,5 @@ Not uploaded yet (waiting for the owner): HF Space, SourceForge, Product Hunt.
 ## App directories (submitted 2026-10-30, Amazon link only)
 - The Great Apps: Pending (no URL yet)
 - The Popular Apps: Pending, https://www.thepopularapps.com/apps/imc-calculadora
+
+- Packagist: https://packagist.org/packages/imccalculadora/imc-calculadora (nofollow, live 2026-10-30)
