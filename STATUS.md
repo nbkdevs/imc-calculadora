@@ -93,3 +93,7 @@ Owner approved publishing. Link checked on the rendered live page; "dofollow" = 
 Docker push: daemonless (go-containerregistry), user iamnazzal. Index digest sha256:62fe0c6c97c5678818c2417d5b090f35b26feced9eb3a37a7ce04b0474501e0b (amd64 sha256:297ec480…, arm64 sha256:aec2fa51…). Hub short description and overview set via the Hub API.
 
 Not uploaded yet (waiting for the owner): HF Space, SourceForge, Product Hunt.
+
+## App directories (submitted 2026-10-30, Amazon link only)
+- The Great Apps: Pending (no URL yet)
+- The Popular Apps: Pending, https://www.thepopularapps.com/apps/imc-calculadora
