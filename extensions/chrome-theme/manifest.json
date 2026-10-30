@@ -1,0 +1,118 @@
+{
+  "manifest_version": 3,
+  "name": "IMC Calculadora \u2014 Mist Meadow",
+  "version": "1.0.0",
+  "description": "A calm editorial Chrome theme: misty sage meadow at dawn, soft teal frame, and a quiet cream toolbar. Inspired by premium illustrated browser themes\u2014no clutter.",
+  "theme": {
+    "images": {
+      "theme_frame": "images/theme_frame.png",
+      "theme_toolbar": "images/theme_toolbar.png",
+      "theme_ntp_background": "images/theme_ntp_background.png",
+      "theme_tab_background": "images/theme_tab_background.png"
+    },
+    "colors": {
+      "frame": [
+        14,
+        72,
+        64
+      ],
+      "frame_inactive": [
+        55,
+        78,
+        74
+      ],
+      "toolbar": [
+        236,
+        242,
+        239
+      ],
+      "tab_text": [
+        255,
+        255,
+        255
+      ],
+      "tab_background_text": [
+        34,
+        52,
+        48
+      ],
+      "bookmark_text": [
+        34,
+        52,
+        48
+      ],
+      "ntp_background": [
+        232,
+        240,
+        236
+      ],
+      "ntp_text": [
+        34,
+        52,
+        48
+      ],
+      "ntp_link": [
+        14,
+        92,
+        82
+      ],
+      "ntp_header": [
+        14,
+        72,
+        64
+      ],
+      "ntp_section": [
+        255,
+        255,
+        255
+      ],
+      "button_background": [
+        14,
+        92,
+        82
+      ],
+      "toolbar_button_icon": [
+        14,
+        72,
+        64
+      ],
+      "omnibox_background": [
+        255,
+        255,
+        255
+      ],
+      "omnibox_text": [
+        34,
+        52,
+        48
+      ]
+    },
+    "tints": {
+      "buttons": [
+        0.35,
+        0.28,
+        0.38
+      ],
+      "frame": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "frame_inactive": [
+        0.42,
+        0.12,
+        0.42
+      ],
+      "background_tab": [
+        0.35,
+        0.08,
+        0.55
+      ]
+    },
+    "properties": {
+      "ntp_background_alignment": "bottom",
+      "ntp_background_repeat": "no-repeat",
+      "ntp_logo_alternate": 1
+    }
+  }
+}

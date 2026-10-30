@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "IMC Calculadora",
+  "version": "1.0.0",
+  "description": "A lightweight offline BMI calculator for adults, children, ideal weight, and pregnancy\u2014private, no account.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "IMC Calculadora"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage"
+  ]
+}

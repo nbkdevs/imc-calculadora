@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IMC Calculadora</title>
+    <link rel="stylesheet" href="css/popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>IMC Calculadora</h1>
+      <p>Calcula tu IMC sin conexión. No pedimos registro ni enviamos tus datos.</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button type="button" class="active" data-tab="adult">Adultos</button>
+      <button type="button" data-tab="child">Niños</button>
+      <button type="button" data-tab="ideal">Peso ideal</button>
+      <button type="button" data-tab="pregnancy">Embarazo</button>
+      <button type="button" data-tab="history">Historial</button>
+      <button type="button" data-tab="about">Info</button>
+    </nav>
+
+    <main>
+      <section id="panel-adult" class="panel active">
+        <form id="form-adult" class="stack">
+          <div class="row">
+            <label>
+              Peso (kg)
+              <input name="weight" type="number" min="1" max="400" step="0.1" required placeholder="70" />
+            </label>
+            <label>
+              Estatura (cm)
+              <input name="height" type="number" min="50" max="250" step="0.1" required placeholder="170" />
+            </label>
+          </div>
+          <button class="primary" type="submit">Calcular IMC</button>
+        </form>
+        <div id="result-adult" class="result" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-child" class="panel">
+        <form id="form-child" class="stack">
+          <div class="row">
+            <label>
+              Edad (años)
+              <input name="years" type="number" min="2" max="19" step="1" required placeholder="8" />
+            </label>
+            <label>
+              Meses extra
+              <input name="months" type="number" min="0" max="11" step="1" value="0" />
+            </label>
+          </div>
+          <label>
+            Sexo
+            <select name="sex">
+              <option value="nino">Niño</option>
+              <option value="nina">Niña</option>
+            </select>
+          </label>
+          <div class="row">
+            <label>
+              Peso (kg)
+              <input name="weight" type="number" min="1" max="200" step="0.1" required />
+            </label>
+            <label>
+              Estatura (cm)
+              <input name="height" type="number" min="50" max="220" step="0.1" required />
+            </label>
+          </div>
+          <button class="primary" type="submit">Calcular percentil</button>
+        </form>
+        <div id="result-child" class="result" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-ideal" class="panel">
+        <form id="form-ideal" class="stack">
+          <label>
+            Estatura (cm)
+            <input name="height" type="number" min="50" max="250" step="0.1" required placeholder="170" />
+          </label>
+          <button class="primary" type="submit">Calcular rango</button>
+        </form>
+        <div id="result-ideal" class="result" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-pregnancy" class="panel">
+        <form id="form-pregnancy" class="stack">
+          <div class="row">
+            <label>
+              Peso previo (kg)
+              <input name="preWeight" type="number" min="1" max="400" step="0.1" required />
+            </label>
+            <label>
+              Estatura (cm)
+              <input name="height" type="number" min="50" max="250" step="0.1" required />
+            </label>
+          </div>
+          <div class="row">
+            <label>
+              Semana
+              <input name="week" type="number" min="1" max="42" step="1" required placeholder="20" />
+            </label>
+            <label>
+              Peso actual (kg)
+              <input name="currentWeight" type="number" min="1" max="400" step="0.1" placeholder="Opcional" />
+            </label>
+          </div>
+          <button class="primary" type="submit">Calcular aumento</button>
+        </form>
+        <div id="result-pregnancy" class="result" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-history" class="panel">
+        <div class="stack">
+          <button type="button" class="ghost" id="clear-history">Borrar historial</button>
+          <ul id="history-list" class="history-list"></ul>
+          <p id="history-empty" class="empty">Aún no hay cálculos guardados en este navegador.</p>
+        </div>
+      </section>
+
+      <section id="panel-about" class="panel">
+        <div class="about">
+          <p>
+            <strong>IMC Calculadora</strong> calcula el índice de masa corporal offline: adultos (OMS),
+            niños 2–19 años (percentiles CDC), peso ideal y aumento en el embarazo (IOM/ACOG).
+          </p>
+          <p>
+            Orientativo, no sustituye consejo médico.
+            Sitio: <a href="https://imccalculadora.app/" target="_blank" rel="noopener">imccalculadora.app</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>Datos solo en este navegador · sin cuenta</footer>
+    <div id="toast" class="toast" role="status"></div>
+
+    <script src="js/calculators.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+{"args": ["eval", "foreach ( array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() ) as $n ) { if ( str_contains( $n, \"accord\" ) || str_contains( $n, \"pane\" ) ) { echo $n, \"\\n\"; } }"]}
