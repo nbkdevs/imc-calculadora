@@ -1,0 +1,16 @@
+{
+  "name": "imc-calculadora",
+  "version": "1.0.0",
+  "description": "Calculadora IMC / BMI calculator: adult BMI with WHO classes (incl. thinness subclasses), healthy-weight range, metric and imperial input, Spanish and English labels. Library + CLI, zero dependencies.",
+  "keywords": ["imc", "bmi", "calculadora-imc", "indice-de-masa-corporal", "body-mass-index", "who", "oms", "peso-ideal", "health", "cli"],
+  "homepage": "https://imccalculadora.app/",
+  "bugs": { "url": "https://github.com/nbkdevs/imc-calculadora/issues" },
+  "repository": { "type": "git", "url": "git+https://github.com/nbkdevs/imc-calculadora.git", "directory": "packages/npm" },
+  "license": "MIT",
+  "author": "IMC Calculadora (https://imccalculadora.app/)",
+  "main": "lib/index.js",
+  "bin": { "imc-calculadora": "bin/cli.js" },
+  "files": ["lib/", "bin/", "README.md", "LICENSE"],
+  "scripts": { "test": "node --test test/" },
+  "engines": { "node": ">=18" }
+}

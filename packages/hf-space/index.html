@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora IMC (BMI) con clasificación OMS</title>
+<meta name="description" content="Calcula tu IMC en kg/cm o lb/in, ve tu clase OMS y tu rango de peso saludable. Calculate your BMI with WHO classes.">
+<style>
+:root{--bg:#f4f8f6;--card:#fff;--ink:#17322b;--mut:#5b7069;--acc:#1f8a70;--line:#dbe6e1}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+main{max-width:640px;margin:0 auto;padding:24px 16px 48px}h1{font-size:1.6rem;margin:.2em 0}p.lead{color:var(--mut);margin-top:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row label{flex:1 1 140px;font-weight:600;font-size:.9rem}
+input{width:100%;padding:10px 12px;margin-top:4px;border:1px solid var(--line);border-radius:10px;font:inherit}
+.tabs{display:flex;gap:6px;margin-bottom:12px}.tabs button,.lang button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font:inherit;cursor:pointer}
+.tabs button[aria-pressed=true],.lang button[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.lang{float:right;display:flex;gap:4px}.big{font-size:2.6rem;font-weight:800;line-height:1}.pill{display:inline-block;padding:4px 12px;border-radius:999px;color:#fff;font-weight:700;margin-left:8px;vertical-align:middle}
+.bar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:14px 0 4px}.bar span{flex:1}
+table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+tr.on td{font-weight:700;background:#eef7f3}small,.mut{color:var(--mut)}footer{margin-top:24px;color:var(--mut);font-size:.9rem}a{color:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+<div class="lang"><button id="es" aria-pressed="true">ES</button><button id="en" aria-pressed="false">EN</button></div>
+<h1 data-t="title">Calculadora de IMC</h1>
+<p class="lead" data-t="lead">Índice de masa corporal para adultos con la clasificación de la OMS.</p>
+<div class="card">
+  <div class="tabs"><button id="met" aria-pressed="true">kg / cm</button><button id="imp" aria-pressed="false">lb / in</button></div>
+  <div class="row">
+    <label><span data-t="weight">Peso</span> (<span id="wu">kg</span>)<input id="w" inputmode="decimal" value="70"></label>
+    <label><span data-t="height">Altura</span> (<span id="hu">cm</span>)<input id="h" inputmode="decimal" value="170"></label>
+  </div>
+  <p class="mut" style="margin:.6em 0 0"><small data-t="hint">Acepta coma o punto decimal. La altura puede ir en metros (1,70).</small></p>
+</div>
+<div class="card" id="out" aria-live="polite"></div>
+<div class="card">
+  <strong data-t="classes">Clasificación OMS (adultos)</strong>
+  <table id="tbl"></table>
+  <p class="mut"><small data-t="round">El IMC se redondea a 1 decimal antes de clasificarlo.</small></p>
+</div>
+<p class="mut"><small id="disc"></small></p>
+<footer><span data-t="more">Más calculadoras y la metodología completa en</span> <a href="https://imccalculadora.app/">Calculadora IMC</a>.</footer>
+</main>
+<script>
+(function(){var module={exports:{}};
+
+/**
+ * imc-calculadora: adult BMI (IMC) with WHO classes, healthy-weight range,
+ * metric/imperial input and Spanish/English labels. Zero dependencies.
+ * The BMI is rounded to 1 decimal BEFORE it is classified, so 24.96 -> 25.0 -> overweight.
+ */
+
+const LB_KG = 0.45359237;
+const IN_CM = 2.54;
+
+// [key, upper bound (exclusive, on the 1-decimal BMI), es, en, WHO group]
+const CLASSES = [
+  ['delgadez_severa', 16, 'Delgadez severa', 'Severe thinness', 'bajo'],
+  ['delgadez_moderada', 17, 'Delgadez moderada', 'Moderate thinness', 'bajo'],
+  ['delgadez_leve', 18.5, 'Delgadez leve', 'Mild thinness', 'bajo'],
+  ['normal', 25, 'Peso normal', 'Normal weight', 'normal'],
+  ['sobrepeso', 30, 'Sobrepeso', 'Overweight', 'sobrepeso'],
+  ['obesidad_1', 35, 'Obesidad grado I', 'Obesity class I', 'obesidad'],
+  ['obesidad_2', 40, 'Obesidad grado II', 'Obesity class II', 'obesidad'],
+  ['obesidad_3', Infinity, 'Obesidad grado III', 'Obesity class III', 'obesidad'],
+];
+
+const DISCLAIMER = {
+  es: 'El IMC es una referencia general para adultos y no sustituye el consejo de un profesional de la salud.',
+  en: 'BMI is a general guide for adults and is not medical advice.',
+};
+
+function round1(x) {
+  return Math.floor(x * 10 + 0.5 + 1e-9) / 10;
+}
+
+/** Parse "70,5", "70.5" or 70.5 into a number. Throws on anything else. */
+function parseNumber(v) {
+  if (typeof v === 'number') {
+    if (!Number.isFinite(v)) throw new RangeError('not a finite number');
+    return v;
+  }
+  const s = String(v).trim().replace(',', '.');
+  if (!/^[+]?\d+(\.\d+)?$|^[+]?\.\d+$/.test(s)) throw new RangeError(`invalid number: ${v}`);
+  return Number(s);
+}
+
+/** Accept height in cm, or in metres when the value is below 3 (1,75 -> 175). */
+function heightCm(h) {
+  const n = parseNumber(h);
+  return n < 3 ? n * 100 : n;
+}
+
+function lang(l) {
+  return l === 'en' ? 'en' : 'es';
+}
+
+/** WHO class for a BMI. The value is rounded to 1 decimal first. */
+function classify(bmiValue, language = 'es') {
+  const b = round1(parseNumber(bmiValue));
+  const c = CLASSES.find(([, upper]) => b < upper);
+  return { key: c[0], label: lang(language) === 'en' ? c[3] : c[2], group: c[4], bmi: b };
+}
+
+/** Raw BMI from kg and cm (not rounded). */
+function bmi(weightKg, heightCmValue) {
+  const w = parseNumber(weightKg);
+  const h = heightCm(heightCmValue) / 100;
+  if (!(w > 0) || !(h > 0)) throw new RangeError('weight and height must be greater than 0');
+  return w / (h * h);
+}
+
+/** Raw BMI from pounds and inches: 703 * lb / in^2. */
+function bmiImperial(weightLb, heightIn) {
+  const w = parseNumber(weightLb);
+  const h = parseNumber(heightIn);
+  if (!(w > 0) || !(h > 0)) throw new RangeError('weight and height must be greater than 0');
+  return (703 * w) / (h * h);
+}
+
+/** Healthy-weight range (BMI 18.5 to 24.9) in kg for a height, 1 decimal. */
+function healthyRange(heightCmValue) {
+  const h = heightCm(heightCmValue) / 100;
+  if (!(h > 0)) throw new RangeError('height must be greater than 0');
+  return { minKg: round1(18.5 * h * h), maxKg: round1(24.9 * h * h) };
+}
+
+function message(cls, diffKg, language) {
+  const d = lang(language) === 'en' ? diffKg.toFixed(1) : diffKg.toFixed(1).replace('.', ',');
+  if (lang(language) === 'en') {
+    if (cls.group === 'normal') return 'Your BMI is in the normal range for your height.';
+    if (cls.group === 'bajo') return `Your BMI shows ${cls.label.toLowerCase()}. You are ${d} kg below the normal range.`;
+    return `Your BMI shows ${cls.label.toLowerCase()}. You are ${d} kg above the normal range.`;
+  }
+  if (cls.group === 'normal') return 'Tu IMC está dentro del rango normal para tu estatura.';
+  if (cls.group === 'bajo') return `Tu IMC indica ${cls.label.toLowerCase()}. Te faltan ${d} kg para llegar al rango normal.`;
+  return `Tu IMC indica ${cls.label.toLowerCase()}. Te sobran ${d} kg respecto al rango normal.`;
+}
+
+/**
+ * Full result. opts: { weightKg, heightCm } or { weightLb, heightIn }, plus lang 'es' | 'en'.
+ */
+function calculate(opts = {}) {
+  const language = lang(opts.lang);
+  let raw, kg, cm;
+  if (opts.weightLb != null || opts.heightIn != null) {
+    raw = bmiImperial(opts.weightLb, opts.heightIn);
+    kg = parseNumber(opts.weightLb) * LB_KG;
+    cm = parseNumber(opts.heightIn) * IN_CM;
+  } else {
+    raw = bmi(opts.weightKg, opts.heightCm);
+    kg = parseNumber(opts.weightKg);
+    cm = heightCm(opts.heightCm);
+  }
+  const cls = classify(raw, language);
+  const range = healthyRange(cm);
+  let diffKg = 0;
+  if (cls.group === 'bajo') diffKg = round1(Math.max(0, range.minKg - kg));
+  else if (cls.group !== 'normal') diffKg = round1(Math.max(0, kg - range.maxKg));
+  return {
+    bmi: cls.bmi,
+    key: cls.key,
+    label: cls.label,
+    group: cls.group,
+    healthyRange: range,
+    diffKg,
+    message: message(cls, diffKg, language),
+    disclaimer: DISCLAIMER[language],
+  };
+}
+
+module.exports = {
+  calculate, classify, bmi, bmiImperial, healthyRange, parseNumber, heightCm, round1,
+  CLASSES: CLASSES.map(([key, upper, es, en, group]) => ({ key, upper, es, en, group })),
+  DISCLAIMER, LB_KG, IN_CM,
+};
+
+window.imc=module.exports;})();
+(function () {
+  var imc = window.imc, lang = 'es', unit = 'met';
+  var COLORS = { bajo: '#3b82c4', normal: '#1f8a70', sobrepeso: '#e0a526', obesidad: '#d0553f' };
+  var T = {
+    es: { title: 'Calculadora de IMC', lead: 'Índice de masa corporal para adultos con la clasificación de la OMS.', weight: 'Peso', height: 'Altura',
+      hint: 'Acepta coma o punto decimal. La altura puede ir en metros (1,70).', classes: 'Clasificación OMS (adultos)', round: 'El IMC se redondea a 1 decimal antes de clasificarlo.',
+      more: 'Más calculadoras y la metodología completa en', your: 'Tu IMC', range: 'Peso saludable para tu altura', cls: 'Clase', bmi: 'IMC', err: 'Introduce un peso y una altura mayores que 0.' },
+    en: { title: 'BMI Calculator', lead: 'Adult body mass index with the WHO classification.', weight: 'Weight', height: 'Height',
+      hint: 'Comma or dot decimals. Height can be in metres (1.70).', classes: 'WHO classes (adults)', round: 'BMI is rounded to 1 decimal before it is classified.',
+      more: 'More calculators and the full methodology at', your: 'Your BMI', range: 'Healthy weight for your height', cls: 'Class', bmi: 'BMI', err: 'Enter a weight and a height greater than 0.' } };
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return lang === 'en' ? n.toFixed(1) : n.toFixed(1).replace('.', ','); };
+  function bounds(i) {
+    var lo = i === 0 ? 0 : imc.CLASSES[i - 1].upper, hi = imc.CLASSES[i].upper;
+    return hi === Infinity ? '≥ ' + fmt(lo) : (i === 0 ? '< ' + fmt(hi) : fmt(lo) + ' – ' + fmt(Math.round(hi * 10 - 1) / 10));
+  }
+  function render() {
+    var t = T[lang]; document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = t[el.getAttribute('data-t')]; });
+    $('wu').textContent = unit === 'met' ? 'kg' : 'lb'; $('hu').textContent = unit === 'met' ? 'cm' : 'in';
+    $('disc').textContent = imc.DISCLAIMER[lang];
+    var r = null;
+    try {
+      r = unit === 'met' ? imc.calculate({ weightKg: $('w').value, heightCm: $('h').value, lang: lang })
+        : imc.calculate({ weightLb: $('w').value, heightIn: $('h').value, lang: lang });
+    } catch (e) { r = null; }
+    var segs = imc.CLASSES.map(function (c) { return '<span style="background:' + COLORS[c.group] + ';opacity:' + (r && r.key === c.key ? 1 : .35) + '"></span>'; }).join('');
+    $('out').innerHTML = r ? '<div class="mut">' + t.your + '</div><div><span class="big">' + fmt(r.bmi) + '</span><span class="pill" style="background:' + COLORS[r.group] + '">' + r.label + '</span></div>' +
+      '<div class="bar">' + segs + '</div><p>' + r.message + '</p><p><strong>' + t.range + ':</strong> ' + fmt(r.healthyRange.minKg) + ' – ' + fmt(r.healthyRange.maxKg) + ' kg' +
+      (unit === 'imp' ? ' (' + fmt(r.healthyRange.minKg / imc.LB_KG) + ' – ' + fmt(r.healthyRange.maxKg / imc.LB_KG) + ' lb)' : '') + '</p>' : '<p>' + t.err + '</p>';
+    $('tbl').innerHTML = '<tr><th>' + t.cls + '</th><th>' + t.bmi + '</th></tr>' + imc.CLASSES.map(function (c, i) {
+      return '<tr class="' + (r && r.key === c.key ? 'on' : '') + '"><td><span style="color:' + COLORS[c.group] + '">●</span> ' + c[lang] + '</td><td>' + bounds(i) + '</td></tr>';
+    }).join('');
+  }
+  function setUnit(u) {
+    if (u === unit) return;
+    var w = imc.parseNumber.bind(imc), wv = $('w').value, hv = $('h').value;
+    try {
+      if (u === 'imp') { $('w').value = (w(wv) / imc.LB_KG).toFixed(1); $('h').value = (imc.heightCm(hv) / imc.IN_CM).toFixed(1); }
+      else { $('w').value = (w(wv) * imc.LB_KG).toFixed(1); $('h').value = (w(hv) * imc.IN_CM).toFixed(0); }
+    } catch (e) {}
+    unit = u; $('met').setAttribute('aria-pressed', u === 'met'); $('imp').setAttribute('aria-pressed', u === 'imp'); render();
+  }
+  function setLang(l) { lang = l; $('es').setAttribute('aria-pressed', l === 'es'); $('en').setAttribute('aria-pressed', l === 'en'); render(); }
+  $('met').onclick = function () { setUnit('met'); }; $('imp').onclick = function () { setUnit('imp'); };
+  $('es').onclick = function () { setLang('es'); }; $('en').onclick = function () { setLang('en'); };
+  $('w').oninput = render; $('h').oninput = render;
+  if ((navigator.language || '').slice(0, 2) === 'en') setLang('en'); else render();
+})();
+</script>
+</body>
+</html>

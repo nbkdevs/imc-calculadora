@@ -1,0 +1,13 @@
+{
+  "name": "imc-calculadora-server",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Docker image: BMI (IMC) API with WHO classes and a bilingual calculator page",
+  "homepage": "https://imccalculadora.app/",
+  "license": "MIT",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/"
+  }
+}

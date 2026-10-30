@@ -1,0 +1,64 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use ImcCalculadora\Imc;
+
+foreach ([__DIR__ . '/../../../vendor/autoload.php', __DIR__ . '/../../../../../autoload.php'] as $f) {
+    if (is_file($f)) {
+        require $f;
+        break;
+    }
+}
+if (!class_exists(Imc::class)) {
+    require __DIR__ . '/../src/Imc.php';
+}
+
+$help = "imc-calculadora: adult BMI (IMC) with WHO classes\n\nUsage:\n  imc-calculadora <peso-kg> <altura-cm|m> [--en] [--json]\n  imc-calculadora --lb <peso-lb> --in <altura-in> [--en] [--json]\n  imc-calculadora --rango <altura-cm|m> [--en]\n";
+$a = array_slice($argv, 1);
+if (!$a || array_intersect($a, ['-h', '--help'])) {
+    echo $help;
+    exit(0);
+}
+$flag = function (string $f) use (&$a): bool {
+    $i = array_search($f, $a, true);
+    if ($i === false) {
+        return false;
+    }
+    array_splice($a, (int) $i, 1);
+    return true;
+};
+$take = function (string $f) use (&$a): ?string {
+    $i = array_search($f, $a, true);
+    if ($i === false) {
+        return null;
+    }
+    $v = $a[$i + 1] ?? '';
+    array_splice($a, (int) $i, 2);
+    return $v;
+};
+$lang = $flag('--en') ? 'en' : 'es';
+$json = $flag('--json');
+$hw = $lang === 'en' ? 'Healthy weight' : 'Peso saludable';
+try {
+    if (($rango = $take('--rango')) !== null) {
+        $r = Imc::healthyRange($rango);
+        echo $json ? json_encode($r) . "\n" : "$hw: " . Imc::format($r['min_kg'], $lang) . ' - ' . Imc::format($r['max_kg'], $lang) . " kg\n";
+        exit(0);
+    }
+    $lb = $take('--lb');
+    $in = $take('--in');
+    $r = ($lb !== null || $in !== null)
+        ? Imc::calculate(lang: $lang, weightLb: $lb ?? '', heightIn: $in ?? '')
+        : Imc::calculate($a[0] ?? '', $a[1] ?? '', $lang);
+    if ($json) {
+        echo json_encode($r, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n";
+        exit(0);
+    }
+    echo ($lang === 'en' ? 'BMI ' : 'IMC ') . Imc::format($r['bmi'], $lang) . ": {$r['label']}\n{$r['message']}\n";
+    echo "$hw: " . Imc::format($r['min_kg'], $lang) . ' - ' . Imc::format($r['max_kg'], $lang) . " kg\n{$r['disclaimer']}\n";
+} catch (\InvalidArgumentException $e) {
+    fwrite(STDERR, "error: {$e->getMessage()}\n\n$help");
+    exit(2);
+}

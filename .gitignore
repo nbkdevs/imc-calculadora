@@ -1,2 +1,24 @@
 /content-backup/*
 /content-backup/
+
+# packages: dependencies and build output
+/vendor/
+/composer.lock
+.phpunit.cache/
+.phpunit.result.cache
+node_modules/
+packages/**/dist/
+packages/**/build/
+packages/**/target/
+packages/**/bin/Debug/
+packages/**/bin/Release/
+packages/**/obj/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.dart_tool/
+packages/pub/pubspec.lock
+packages/crates/Cargo.lock
+*.tgz
+*.gem
+*.nupkg

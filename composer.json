@@ -1,0 +1,21 @@
+{
+  "name": "imccalculadora/imc-calculadora",
+  "description": "Calculadora IMC / BMI calculator: adult BMI with WHO classes (incl. thinness subclasses), 1-decimal rounding before classifying, healthy-weight range, metric and imperial input, Spanish and English labels. Zero dependencies.",
+  "type": "library",
+  "keywords": ["imc", "bmi", "calculadora-imc", "indice-de-masa-corporal", "body-mass-index", "who", "oms", "peso-ideal", "health"],
+  "homepage": "https://imccalculadora.app/",
+  "license": "MIT",
+  "authors": [{ "name": "IMC Calculadora", "homepage": "https://imccalculadora.app/" }],
+  "support": {
+    "issues": "https://github.com/nbkdevs/imc-calculadora/issues",
+    "source": "https://github.com/nbkdevs/imc-calculadora"
+  },
+  "require": { "php": ">=8.1", "ext-mbstring": "*" },
+  "require-dev": { "phpunit/phpunit": "^9.6 || ^10.5 || ^11.0" },
+  "autoload": { "psr-4": { "ImcCalculadora\\": "packages/packagist/src/" } },
+  "autoload-dev": { "psr-4": { "ImcCalculadora\\Tests\\": "packages/packagist/tests/" } },
+  "bin": ["packages/packagist/bin/imc-calculadora"],
+  "scripts": { "test": "phpunit -c packages/packagist/phpunit.xml" },
+  "config": { "sort-packages": true },
+  "minimum-stability": "stable"
+}

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imc-calculadora"
+version = "1.0.0"
+description = "Calculadora IMC / BMI calculator: adult BMI with WHO classes (incl. thinness subclasses), healthy-weight range, metric and imperial, Spanish and English."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "IMC Calculadora" }]
+keywords = ["imc", "bmi", "calculadora-imc", "indice-de-masa-corporal", "body-mass-index", "who", "peso-ideal"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Intended Audience :: End Users/Desktop",
+  "Natural Language :: Spanish",
+  "Natural Language :: English",
+  "Topic :: Scientific/Engineering :: Medical Science Apps.",
+  "Topic :: Utilities",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://imccalculadora.app/"
+Documentation = "https://imccalculadora.app/"
+Repository = "https://github.com/nbkdevs/imc-calculadora"
+Issues = "https://github.com/nbkdevs/imc-calculadora/issues"
+
+[project.scripts]
+imc-calculadora = "imc_calculadora.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

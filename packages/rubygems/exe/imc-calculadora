@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "json"
+require_relative "../lib/imc_calculadora"
+
+HELP = <<~TXT
+  imc-calculadora: adult BMI (IMC) with WHO classes
+
+  Usage:
+    imc-calculadora <peso-kg> <altura-cm|m> [--en] [--json]
+    imc-calculadora --lb <peso-lb> --in <altura-in> [--en] [--json]
+    imc-calculadora --rango <altura-cm|m> [--en]
+TXT
+
+args = ARGV.dup
+if args.empty? || args.include?("-h") || args.include?("--help")
+  puts HELP
+  exit 0
+end
+en = !args.delete("--en").nil?
+json = !args.delete("--json").nil?
+lang = en ? "en" : "es"
+take = lambda do |flag|
+  i = args.index(flag)
+  next nil unless i
+
+  v = args[i + 1] || ""
+  args.slice!(i, 2)
+  v
+end
+hw = en ? "Healthy weight" : "Peso saludable"
+f = ->(n) { ImcCalculadora.format(n, lang) }
+begin
+  rango = take.call("--rango")
+  if rango
+    lo, hi = ImcCalculadora.healthy_range(rango)
+    puts json ? JSON.generate(min_kg: lo, max_kg: hi) : "#{hw}: #{f.call(lo)} - #{f.call(hi)} kg"
+    exit 0
+  end
+  lb = take.call("--lb")
+  inch = take.call("--in")
+  r = if lb || inch
+        ImcCalculadora.calculate(weight_lb: lb || "", height_in: inch || "", lang: lang)
+      else
+        ImcCalculadora.calculate(weight_kg: args[0] || "", height: args[1] || "", lang: lang)
+      end
+  if json
+    puts JSON.pretty_generate(r.to_h)
+  else
+    puts "#{en ? 'BMI' : 'IMC'} #{f.call(r.bmi)}: #{r.label}", r.message,
+         "#{hw}: #{f.call(r.min_kg)} - #{f.call(r.max_kg)} kg", r.disclaimer
+  end
+rescue ArgumentError => e
+  warn "error: #{e.message}\n\n#{HELP}"
+  exit 2
+end

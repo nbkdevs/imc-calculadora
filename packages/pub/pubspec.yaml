@@ -1,0 +1,21 @@
+name: imc_calculadora
+description: Calculadora IMC / BMI calculator. Adult BMI with WHO classes (incl. thinness subclasses), healthy-weight range, metric and imperial input, Spanish and English labels. Pure Dart with a CLI.
+version: 1.0.0
+homepage: https://imccalculadora.app/
+repository: https://github.com/nbkdevs/imc-calculadora/tree/main/packages/pub
+issue_tracker: https://github.com/nbkdevs/imc-calculadora/issues
+topics:
+  - bmi
+  - health
+  - calculator
+  - fitness
+
+environment:
+  sdk: ^3.0.0
+
+executables:
+  imc_calculadora:
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.25.0

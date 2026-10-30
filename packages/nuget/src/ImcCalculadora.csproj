@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ImcCalculadora</RootNamespace>
+    <PackageId>ImcCalculadora</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>IMC Calculadora</Authors>
+    <Company>IMC Calculadora</Company>
+    <Description>Calculadora IMC / BMI calculator: adult BMI with WHO classes (incl. thinness subclasses), 1-decimal rounding before classifying, healthy-weight range, metric and imperial input, Spanish and English labels.</Description>
+    <PackageTags>imc;bmi;calculadora-imc;body-mass-index;who;health;peso-ideal</PackageTags>
+    <PackageProjectUrl>https://imccalculadora.app/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nbkdevs/imc-calculadora</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="/" />
+    <None Include="../LICENSE" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

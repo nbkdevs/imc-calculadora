@@ -1,0 +1,22 @@
+[package]
+name = "imc-calculadora"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.70"
+description = "Calculadora IMC / BMI calculator: adult BMI with WHO classes (incl. thinness subclasses), healthy-weight range, metric and imperial, Spanish and English."
+license = "MIT"
+readme = "README.md"
+homepage = "https://imccalculadora.app/"
+repository = "https://github.com/nbkdevs/imc-calculadora"
+keywords = ["bmi", "imc", "health", "calculator", "cli"]
+categories = ["command-line-utilities", "science"]
+authors = ["IMC Calculadora"]
+include = ["src/**", "README.md", "LICENSE", "Cargo.toml"]
+
+[lib]
+name = "imc_calculadora"
+path = "src/lib.rs"
+
+[[bin]]
+name = "imc-calculadora"
+path = "src/main.rs"
