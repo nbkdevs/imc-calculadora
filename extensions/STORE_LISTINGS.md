@@ -1,139 +1,138 @@
-# IMC Calculadora — Store listings (EN / ES)
+# Browser store listings: BMI Pocket Calculator (Firefox AMO, Edge) and Mist Meadow (Chrome Web Store theme)
 
-Use for Google Play, Amazon Appstore, Firefox Add-ons, Edge Add-ons, and Chrome Web Store (theme).
+Updated 3 Nov 2026 (PKT). Browser-store items carry no brand, trademark or place names, and the listing copy has no site link or site name.
+The site goes ONLY in the URL fields below. (The Android app copy now lives in `app/APP_STORE_LISTING.md`.)
 
----
+## URL fields (the only place the site appears)
 
-## Browser extension review fields (Firefox / Edge)
+| Field | AMO (Firefox) | Edge Add-ons | Chrome Web Store (theme) |
+|---|---|---|---|
+| Homepage / website | https://imccalculadora.app/ | https://imccalculadora.app/ | https://imccalculadora.app/ (Store listing → Homepage URL) |
+| Support | https://imccalculadora.app/contacto/ | https://imccalculadora.app/contacto/ | https://imccalculadora.app/contacto/ (Support URL) |
+| Privacy policy | leave blank (playbook rule; no data collected) | The site has **no privacy page** (checked 3 Nov: sitemap lists /, /sobre-nosotros/, /metodologia/, /peso-ideal/, /imc-embarazo/, /imc-ninos/, /app/, /contacto/; /privacidad/, /politica-de-privacidad/, /privacy-policy/ all 404). The extension collects no personal data, so Edge does not require one: leave it blank, or add https://imccalculadora.app/privacidad/ once Nazzal publishes that page | leave blank |
 
-### English
+## Packages
 
-**Single purpose summary**  
-Offline Body Mass Index (BMI) calculator for adults, children, ideal weight, and pregnancy guidance—runs in the browser popup with no account and no remote data collection.
+| Store | Zip | Name in manifest |
+|---|---|---|
+| Firefox AMO | `dist/bmi-pocket-calculator-firefox-1.0.0.zip` (gecko id `bmi-pocket-calculator@nbkdevs`) | BMI Pocket Calculator |
+| Edge Add-ons | `dist/bmi-pocket-calculator-edge-1.0.0.zip` | BMI Pocket Calculator |
+| Chrome Web Store (theme only) | `dist/mist-meadow-chrome-theme-1.0.0.zip` | Mist Meadow |
 
-**Description**  
-IMC Calculadora is a private browser extension that calculates Body Mass Index offline. Open the toolbar popup to use adult BMI (WHO categories), child BMI-for-age percentiles ages 2–19 (CDC LMS tables), an ideal-weight range from height alone, and pregnancy weight-gain guidance (IOM/ACOG for singleton pregnancy). Optional local history stores recent results only in your browser. You can copy a result to share. The extension does not require an account, does not read the content of web pages, and does not send your measurements to a server. It is educational only and does not replace medical advice.
+## Images (store-assets/)
 
-Website: https://imccalculadora.app/
+| Store | Asset | File |
+|---|---|---|
+| AMO | Screenshots (1280x800, AMO shows them at 1280x800 / 700x438) | `store-assets/screenshot-{1-adult,2-child,3-pregnancy,4-history}-1280x800.png` |
+| AMO | Icon 128 (inside the package too) | `store-assets/amo-icon-128x128.png` |
+| Edge | Screenshots 1280x800 (or 640x400) | `store-assets/screenshot-*-1280x800.png` / `*-640x400.png` |
+| Edge | Logo 300x300 | `store-assets/edge-logo-300x300.png` |
+| Edge | Small promotional tile 440x280 (optional) | `store-assets/promo-small-440x280.png` |
+| CWS theme | Screenshot 1280x800 (or 640x400) | `store-assets/theme/mist-meadow-screenshot-1280x800.png` / `-640x400.png` |
+| CWS theme | Small promo tile 440x280 | `store-assets/theme/mist-meadow-small-promo-440x280.png` |
 
-**Permissions used**
-
-| Permission | Justification |
-|------------|----------------|
-| `storage` | Saves optional calculation history and preferences locally in the browser so results can be reviewed later on this device. Data stays in browser local storage; it is not uploaded or synced to our servers. |
-
-**Permissions not used**  
-No host permissions, no tabs/activeTab, no cookies, no webRequest, no identity, no downloads.
-
-**Data collection (AMO)**  
-Required: none (`data_collection_permissions.required: ["none"]`).
-
-### Español
-
-**Resumen de propósito único**  
-Calculadora offline de índice de masa corporal (IMC) para adultos, niños, peso ideal y orientación en el embarazo—funciona en el popup del navegador, sin cuenta y sin enviar datos a un servidor.
-
-**Descripción**  
-IMC Calculadora es una extensión privada que calcula el índice de masa corporal sin conexión. Abre el popup de la barra de herramientas para usar el IMC de adultos (categorías OMS), percentiles de IMC infantil de 2 a 19 años (tablas LMS del CDC), el rango de peso ideal solo con la estatura y la orientación de aumento de peso en el embarazo (IOM/ACOG para embarazo único). El historial opcional guarda resultados recientes solo en tu navegador. Puedes copiar un resultado para compartirlo. No pide cuenta, no lee el contenido de las páginas web y no envía tus medidas a un servidor. Es educativa e informativa y no sustituye el consejo médico.
-
-Sitio web: https://imccalculadora.app/
-
-**Permisos usados**
-
-| Permiso | Justificación |
-|---------|---------------|
-| `storage` | Guarda el historial opcional de cálculos y preferencias en el almacenamiento local del navegador para poder revisarlos más tarde en este dispositivo. Los datos permanecen en el navegador; no se suben ni se sincronizan con nuestros servidores. |
-
-**Permisos no usados**  
-Sin host permissions, sin tabs/activeTab, sin cookies, sin webRequest, sin identity, sin downloads.
-
-**Recogida de datos (AMO)**  
-Requerido: ninguno (`data_collection_permissions.required: ["none"]`).
+`store-assets/make_assets.py` redraws the icon set and composes the screenshots from popup captures in `store-assets/raw/` (captured from the unpacked extension in Chrome for Testing).
 
 ---
 
-## English
+## Firefox AMO: BMI Pocket Calculator
 
-### Short description
-Offline BMI calculator for adults, kids, ideal weight, and pregnancy—private, fast, no account.
+**Name:** BMI Pocket Calculator
+**Category:** Other
+**Tags:** bmi, health, calculator, fitness, offline
+**License:** MIT
 
-### Long description
-IMC Calculadora is a private, offline Body Mass Index toolkit for everyday health tracking. It brings the same calculators you find on imccalculadora.app to your phone and browser—fast, focused, and without an account.
+**Summary (≤250):**
+Offline BMI calculator in your toolbar: adult BMI with WHO classes, child BMI-for-age percentiles (2-19), ideal weight range and pregnancy weight gain. No account, nothing uploaded.
 
-Whether you want a quick adult BMI check, a child growth percentile, an ideal-weight range from height alone, or pregnancy weight-gain guidance, everything runs on your device. We do not require registration, we do not sync measurements to the cloud, and we do not sell or share your data.
+**Description:**
+BMI Pocket Calculator puts four body-mass calculators in one small toolbar popup. Everything is calculated on your device: there is no account, no server and no tracking.
 
-Adult BMI
-Enter weight and height to get your BMI and WHO category (underweight, normal, overweight, or obesity grades). Results include plain-language guidance in kilograms toward the normal range for your height.
+- Adult BMI: enter weight (kg) and height (cm) to get your BMI rounded to one decimal and its WHO class (underweight, normal, overweight, obesity I-III), plus how many kilograms you are from the normal range for your height.
+- Child BMI (ages 2-19): BMI-for-age percentile by age and sex from the CDC LMS growth tables, not adult cut-offs, with a plain-language category.
+- Ideal weight: the weight range that matches a normal BMI (18.5-24.9) for a given height, in kilograms and pounds.
+- Pregnancy weight gain: the total recommended gain for a singleton pregnancy from pre-pregnancy BMI (IOM/ACOG), and a check of your current gain against the reference for your week.
+- History: save a result to a short history kept only in this browser, copy any result in one tap, and clear the history whenever you like.
 
-Child BMI (ages 2–19)
-Pediatric BMI is interpreted with age- and sex-specific percentiles using CDC LMS growth tables—not adult cutoffs. You see BMI, percentile, and a clear category (underweight, healthy weight, overweight, or obesity), plus a short note to discuss changes with a pediatrician.
+The interface is in Spanish. This tool is educational and does not replace advice from a doctor, pediatrician or midwife.
 
-Ideal weight
-From height alone, see the approximate weight range that corresponds to a normal BMI (18.5–24.9), shown in kilograms and pounds.
+**Permission justification:**
+- `storage`: keeps the optional result history in the browser's local storage on this device. Nothing is synced or sent anywhere.
+- No host permissions, no tabs/activeTab, no content scripts, no remote code.
 
-Pregnancy weight gain
-Based on pre-pregnancy BMI and Institute of Medicine / ACOG guidance for singleton pregnancy, the tool shows a total recommended gain band and an orientation for your current week. Optional current weight helps compare progress to that reference.
-
-Privacy and history
-Results can be saved in a local history on this device only and copied in one tap to share with family or a clinician. Clear the history anytime. No login. No ads network. No remote analytics in the core calculator experience.
-
-Important
-IMC Calculadora is educational and informational. It is not a medical device and does not diagnose, treat, or replace professional care. Always talk with a qualified clinician for personal health decisions—especially for children and pregnancy.
-
-Website: https://imccalculadora.app/
-
-### Feature bullets (10)
-- Adult BMI with WHO weight categories and clear kg guidance
-- Child BMI-for-age percentiles for ages 2–19 using CDC LMS tables
-- Ideal weight range from height using the normal BMI band
-- Pregnancy gain bands based on pre-pregnancy BMI (IOM/ACOG)
-- Week-by-week reference when you enter current weight
-- Fully offline calculators—no account and no cloud sync
-- Local history of recent results kept only on this device
-- One-tap copy to share results with family or your clinician
-- Clean clinical interface designed for quick, focused use
-- Same methods and branding as imccalculadora.app
+**Data collection:** none (`data_collection_permissions.required: ["none"]`).
+**Privacy policy:** blank.
+**Notes to reviewer:** No build step; the zip is the source (plain HTML/CSS/JS). Open the toolbar button → "Adultos" → enter 72 kg / 175 cm → "Calcular" shows BMI 23.5 "Peso normal"; "Guardar" adds it to "Historial".
 
 ---
 
-## Español
+## Microsoft Edge Add-ons: BMI Pocket Calculator
 
-### Descripción corta
-Calculadora de IMC offline para adultos, niños, peso ideal y embarazo—privada, rápida y sin cuenta.
+**Name:** BMI Pocket Calculator
+**Category:** Productivity
+**Short description (manifest, ≤132):** Offline BMI calculator for adults, children (2-19), ideal weight and pregnancy weight gain. Private, no account.
 
-### Descripción larga
-IMC Calculadora es un conjunto privado y offline de herramientas de índice de masa corporal para el seguimiento diario de la salud. Lleva a tu móvil y a tu navegador las mismas calculadoras de imccalculadora.app: rápidas, claras y sin necesidad de cuenta.
+**Description (≥250):**
+BMI Pocket Calculator is a private, offline body-mass toolkit that opens from the Edge toolbar.
 
-Tanto si quieres un IMC de adulto, un percentil infantil, un rango de peso ideal solo con la estatura o una orientación de aumento de peso en el embarazo, todo se calcula en tu dispositivo. No pedimos registro, no sincronizamos tus medidas en la nube y no vendemos ni compartimos tus datos.
+Adult BMI: enter weight and height to see your BMI and WHO class, plus how many kilograms you are from the normal range for your height.
+Child BMI (2-19 years): BMI-for-age percentile by age and sex using the CDC LMS growth tables.
+Ideal weight: the healthy weight range (BMI 18.5-24.9) for your height, in kg and lb.
+Pregnancy weight gain: the recommended total gain for a singleton pregnancy from your pre-pregnancy BMI (IOM/ACOG), with a check for your current week.
+History: save results locally in this browser, copy a result in one tap, clear it at any time.
 
-IMC de adultos
-Introduce peso y estatura para obtener tu IMC y la categoría según la OMS (bajo peso, normal, sobrepeso u obesidad por grados). El resultado incluye una explicación sencilla en kilogramos respecto al rango normal para tu estatura.
+Everything runs on your device. No account, no ads, no analytics, and no data leaves the browser. The interface is in Spanish. Educational use only; it does not replace medical advice.
 
-IMC infantil (de 2 a 19 años)
-En pediatría el IMC se interpreta con percentiles según edad y sexo, usando tablas LMS del CDC—no los umbrales de adultos. Verás el IMC, el percentil y una categoría clara (bajo peso, peso saludable, sobrepeso u obesidad), además de una nota breve para consultar cambios con el pediatra.
+**Single purpose:** Calculate body mass index (and related healthy-weight ranges) offline in a toolbar popup.
 
-Peso ideal
-Solo con la estatura, obtén el rango aproximado de peso que corresponde a un IMC normal (18.5–24.9), en kilogramos y libras.
+**Permission justification:**
+- `storage`: saves the optional calculation history locally on this device so the user can review it later. Data is never uploaded.
 
-Aumento de peso en el embarazo
-A partir del IMC previo al embarazo y de las recomendaciones del IOM/ACOG para embarazo único, la herramienta muestra la banda de aumento total recomendado y una referencia orientativa para tu semana actual. Si añades el peso actual, puedes comparar tu progreso con esa referencia.
+**Privacy policy URL:** see the URL table above (no privacy page on the site yet; no personal data is collected).
+**Website:** https://imccalculadora.app/  **Support:** https://imccalculadora.app/contacto/
 
-Privacidad e historial
-Puedes guardar resultados en un historial local solo en este dispositivo y copiarlos en un toque para compartirlos con familiares o un profesional. Borra el historial cuando quieras. Sin inicio de sesión. Sin red de anuncios. Sin analítica remota en la experiencia principal de cálculo.
+**Notes for certification (test steps):**
+1. Click the toolbar icon to open the popup (no sign-in, works offline).
+2. "Adultos": weight 72, height 175 → "Calcular" → BMI 23.5, "Peso normal". Click "Guardar".
+3. "Niños": age 9, months 4, sex Niño, weight 31, height 134 → percentile result.
+4. "Peso ideal": height 168 → 52.2-70.3 kg.
+5. "Embarazo": pre-weight 62, height 165, week 24, current 68 → 11.5-16.0 kg total band.
+6. "Historial" lists the saved results; "Borrar historial" clears them.
 
-Importante
-IMC Calculadora es educativa e informativa. No es un dispositivo médico y no diagnostica, trata ni sustituye la atención profesional. Consulta siempre a un clínico cualificado para decisiones de salud personales—sobre todo en niños y en el embarazo.
+---
 
-Sitio web: https://imccalculadora.app/
+## Chrome Web Store (theme): Mist Meadow
 
-### Características (10)
-- IMC de adultos con categorías OMS y orientación en kg
-- Percentiles de IMC infantil de 2 a 19 años con tablas LMS del CDC
-- Rango de peso ideal a partir de la estatura (IMC 18.5–24.9)
-- Bandas de aumento en el embarazo según el IMC previo (IOM/ACOG)
-- Referencia por semana si introduces el peso actual
-- Calculadoras 100% offline—sin cuenta ni sincronización en la nube
-- Historial local de resultados solo en este dispositivo
-- Copiar resultados en un toque para compartirlos
-- Interfaz clínica limpia pensada para un uso rápido
-- Mismos métodos y marca que imccalculadora.app
+**Name:** Mist Meadow
+**Category:** Themes
+**Summary (manifest, ≤132):** A calm Chrome theme: a misty sage meadow at dawn, a soft teal frame and a quiet cream toolbar.
+
+**Description:**
+Mist Meadow is a quiet, low-contrast Chrome theme. The new tab page shows a misty sage meadow at first light, framed by a deep teal title bar and a soft cream toolbar that keeps text easy to read. Background tabs use a muted green-grey so the active tab stands out without bright colours.
+
+- New tab background: hand-picked misty meadow illustration (1920x1080), anchored to the bottom
+- Deep teal frame, cream toolbar, white address bar
+- Readable tab, bookmark and new-tab text colours
+
+Themes have no permissions and collect no data.
+
+**Permissions:** none (theme). **Privacy:** no data collected; privacy URL left blank. Data-use disclosures: "does not collect user data".
+
+---
+
+## Español (AMO / Edge, traducción del texto de arriba)
+
+**Resumen:** Calculadora de IMC sin conexión en la barra: IMC de adultos con clases OMS, percentiles infantiles (2-19 años), rango de peso ideal y aumento de peso en el embarazo. Sin cuenta, sin enviar datos.
+
+**Descripción:**
+BMI Pocket Calculator reúne cuatro calculadoras en un pequeño popup de la barra de herramientas. Todo se calcula en tu dispositivo: sin cuenta, sin servidor y sin rastreo.
+
+- IMC de adultos: peso y estatura → IMC con un decimal y clase OMS, y cuántos kg te separan del rango normal para tu estatura.
+- IMC infantil (2-19 años): percentil de IMC para la edad según edad y sexo, con las tablas LMS del CDC.
+- Peso ideal: rango de peso para un IMC normal (18.5-24.9) según la estatura, en kg y lb.
+- Embarazo: aumento total recomendado para embarazo único según el IMC previo (IOM/ACOG) y comparación con la referencia de tu semana.
+- Historial: guarda resultados solo en este navegador, cópialos en un toque y bórralos cuando quieras.
+
+Es una herramienta educativa y no sustituye el consejo médico.
+
+**Permiso `storage`:** guarda el historial opcional en el almacenamiento local del navegador; nunca se sube ni se sincroniza.

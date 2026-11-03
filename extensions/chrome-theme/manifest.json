@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "IMC Calculadora \u2014 Mist Meadow",
+  "name": "Mist Meadow",
   "version": "1.0.0",
-  "description": "A calm editorial Chrome theme: misty sage meadow at dawn, soft teal frame, and a quiet cream toolbar. Inspired by premium illustrated browser themes\u2014no clutter.",
+  "description": "A calm Chrome theme: a misty sage meadow at dawn, a soft teal frame and a quiet cream toolbar.",
   "theme": {
     "images": {
       "theme_frame": "images/theme_frame.png",

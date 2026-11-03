@@ -99,3 +99,17 @@ Not uploaded yet (waiting for the owner): HF Space, SourceForge, Product Hunt.
 - The Popular Apps: Pending, https://www.thepopularapps.com/apps/imc-calculadora
 
 - Packagist: https://packagist.org/packages/imccalculadora/imc-calculadora (nofollow, live 2026-10-30)
+
+## Update 3 Nov 2026 (PKT)
+
+- **GitHub homepage set**: `gh repo edit --homepage https://imccalculadora.app/` and verified via the API (About "Website" = https://imccalculadora.app/).
+- **HF Space live**: https://huggingface.co/spaces/iamnazzal/imc-calculadora (sdk static, commit f9ba9fd, RUNNING, HTTP 200). README anchor "Calculadora IMC" -> https://imccalculadora.app/ renders `rel="nofollow"` (**nofollow**). The app iframe (iamnazzal-imc-calculadora.static.hf.space) has the link with no rel, but on the hf.space subdomain.
+- **Browser-store items renamed (no brand, no in-text site link)**:
+  - Extension: "BMI Pocket Calculator" 1.0.0, gecko id `bmi-pocket-calculator@nbkdevs` (AMO guid/slug 404 = free). Site link line removed from the popup and share texts. innerHTML replaced with DOMParser/textContent.
+  - Theme: "Mist Meadow" 1.0.0.
+  - New generic "BMI" gauge icon (replaces the "IMC" icon).
+- **Zips** (`python3 extensions/package.py`): extensions/dist/bmi-pocket-calculator-firefox-1.0.0.zip, extensions/dist/bmi-pocket-calculator-edge-1.0.0.zip, extensions/dist/mist-meadow-chrome-theme-1.0.0.zip. The old IMC-Calculadora-*.zip, stray per-folder zips and "Cached Theme.pak" are deleted.
+- **Validation**: manifests parse; `npx web-ext lint` on the Firefox build: 0 errors, 2 expected warnings (data_collection_permissions vs strict_min_version 109). Loaded unpacked in Chrome for Testing: popup works, history storage works, no console errors.
+- **Listings**: extensions/STORE_LISTINGS.md (AMO, Edge, CWS theme + Spanish). Homepage https://imccalculadora.app/, support https://imccalculadora.app/contacto/. Privacy URL blank on AMO/CWS. **Edge privacy URL: the site has no privacy page** (sitemap: /, /sobre-nosotros/, /metodologia/, /peso-ideal/, /imc-embarazo/, /imc-ninos/, /app/, /contacto/). Add /privacidad/ before submitting to Edge. The branded app copy moved to app/APP_STORE_LISTING.md.
+- **Store images** (extensions/store-assets/, regenerate with make_assets.py): edge-logo-300x300.png, amo-icon-128x128.png, screenshot-{1-adult,2-child,3-pregnancy,4-history}-1280x800.png and -640x400.png, promo-small-440x280.png. Theme images are in theme/mist-meadow-screenshot-1280x800.png, theme/mist-meadow-screenshot-640x400.png and theme/mist-meadow-small-promo-440x280.png.
+- **Tracking sheet: not written.** The brief's sheet (1Z1gOCkS…, tab gid 62226115 "Softrank") is titled "Ultimate Backlinks Sheet for Ore Finder" and has only Ore Finder rows. A separate "Ultimate Baclinks Sheet For IMC" (1XJMEa6V…, tab Softrank gid 716951480) has a different Amazon ASIN (B0HCPB22ZX, not B0HM6VJWH3), empty Item URLs and Indexed/Not Indexed statuses. I couldn't confirm which sheet is right, so nothing was written. The rows are ready in /workspace/softrank/sheet-rows/softrank-rows-2026-10-30.csv, plus GitHub and the HF Space.

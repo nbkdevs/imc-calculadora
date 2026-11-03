@@ -8,7 +8,9 @@
   }
 
   function showResult(el, html) {
-    el.innerHTML = html;
+    // Markup is built only from calculator output (numbers and fixed labels).
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    el.replaceChildren(...doc.body.childNodes);
     el.classList.add("show");
   }
 
@@ -42,7 +44,7 @@
     const r = ImcCalc.calculateAdult(weightKg, heightM);
     if (!r) return;
     const share =
-      `IMC Calculadora — Adultos\nIMC: ${r.bmiText}\nCategoría: ${r.category.label}\n${r.message}\nhttps://imccalculadora.app/`;
+      `BMI Pocket Calculator — Adultos\nIMC: ${r.bmiText}\nCategoría: ${r.category.label}\n${r.message}`;
     const summary = `Adultos · IMC ${r.bmiText} · ${r.category.label}`;
     showResult(
       document.getElementById("result-adult"),
@@ -66,8 +68,8 @@
       return;
     }
     const share =
-      `IMC Calculadora — Niños\nIMC: ${r.bmiText}\nPercentil: ${r.percentileText}\n` +
-      `Categoría: ${r.category.label}\n${r.message}\nhttps://imccalculadora.app/`;
+      `BMI Pocket Calculator — Niños\nIMC: ${r.bmiText}\nPercentil: ${r.percentileText}\n` +
+      `Categoría: ${r.category.label}\n${r.message}`;
     const summary = `Niños · P${r.percentileText} · IMC ${r.bmiText} · ${r.category.label}`;
     showResult(
       document.getElementById("result-child"),
@@ -88,7 +90,7 @@
     const r = ImcCalc.calculateIdeal(Number(fd.get("height")) / 100);
     if (!r) return;
     const share =
-      `IMC Calculadora — Peso ideal\nRango: ${r.kgText} (${r.lbText})\nhttps://imccalculadora.app/`;
+      `BMI Pocket Calculator — Peso ideal\nRango: ${r.kgText} (${r.lbText})`;
     const summary = `Peso ideal · ${r.kgText}`;
     showResult(
       document.getElementById("result-ideal"),
@@ -112,8 +114,8 @@
     }
     const range = `${r.totalGainMinKg.toFixed(1)}–${r.totalGainMaxKg.toFixed(1)} kg`;
     const share =
-      `IMC Calculadora — Embarazo\nIMC previo: ${r.preBmi.toFixed(1)} (${r.category.label})\n` +
-      `Aumento total: ${range}\n${r.message}\n${r.progressMessage}\nhttps://imccalculadora.app/`;
+      `BMI Pocket Calculator — Embarazo\nIMC previo: ${r.preBmi.toFixed(1)} (${r.category.label})\n` +
+      `Aumento total: ${range}\n${r.message}\n${r.progressMessage}`;
     const summary = `Embarazo · sem ${r.week} · ${range}`;
     showResult(
       document.getElementById("result-pregnancy"),
@@ -154,7 +156,7 @@
     const list = document.getElementById("history-list");
     const empty = document.getElementById("history-empty");
     const entries = await ImcHistory.load();
-    list.innerHTML = "";
+    list.replaceChildren();
     if (!entries.length) {
       empty.style.display = "block";
       return;
@@ -163,7 +165,12 @@
     entries.forEach((item) => {
       const li = document.createElement("li");
       const when = new Date(item.at);
-      li.innerHTML = `<strong>${item.summary}</strong><div class="meta">${when.toLocaleString()}</div>`;
+      const strong = document.createElement("strong");
+      strong.textContent = item.summary;
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = when.toLocaleString();
+      li.append(strong, meta);
       list.appendChild(li);
     });
   }

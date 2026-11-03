@@ -1,15 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "IMC Calculadora",
+  "name": "BMI Pocket Calculator",
   "version": "1.0.0",
-  "description": "A lightweight offline BMI calculator for adults, children, ideal weight, and pregnancy\u2014private, no account.",
+  "description": "Offline BMI calculator for adults, children (2-19), ideal weight and pregnancy weight gain. Private, no account.",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
-    }
+    },
+    "default_title": "BMI Pocket Calculator"
   },
   "icons": {
     "16": "icons/icon16.png",
@@ -22,7 +23,7 @@
   "host_permissions": [],
   "browser_specific_settings": {
     "gecko": {
-      "id": "imc-calculadora@imccalculadora.app",
+      "id": "bmi-pocket-calculator@nbkdevs",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
         "required": [

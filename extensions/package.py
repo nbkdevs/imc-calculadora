@@ -40,10 +40,10 @@ def package_extension(browser: str) -> Path:
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
     DIST.mkdir(parents=True, exist_ok=True)
-    zip_path = DIST / f"IMC-Calculadora-{browser}-1.0.0.zip"
+    zip_path = DIST / f"bmi-pocket-calculator-{browser}-1.0.0.zip"
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for path in dest.rglob("*"):
-            if path.is_file():
+            if path.is_file() and path.suffix not in (".zip", ".pak"):
                 zf.write(path, path.relative_to(dest).as_posix())
     return zip_path
 
@@ -51,10 +51,10 @@ def package_extension(browser: str) -> Path:
 def package_theme() -> Path:
     theme = ROOT / "chrome-theme"
     DIST.mkdir(parents=True, exist_ok=True)
-    zip_path = DIST / "IMC-Calculadora-chrome-theme-1.0.0.zip"
+    zip_path = DIST / "mist-meadow-chrome-theme-1.0.0.zip"
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for path in theme.rglob("*"):
-            if path.is_file():
+            if path.is_file() and path.suffix not in (".zip", ".pak"):
                 zf.write(path, path.relative_to(theme).as_posix())
     return zip_path
 

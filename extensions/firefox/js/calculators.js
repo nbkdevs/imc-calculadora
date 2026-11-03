@@ -1,4 +1,4 @@
-/* IMC Calculadora — calculator logic (mirrors Flutter app) */
+/* BMI Pocket Calculator — calculator logic (mirrors Flutter app) */
 (function (global) {
   const COLORS = {
     bajo: "#3B7DD8",
