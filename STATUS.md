@@ -33,7 +33,7 @@ I found no store or registry listing for IMC.
 | Docker Hub (iamnazzal) | `iamnazzal/imc-calculadora`: a tiny BMI API (GET /imc?peso=&altura=) + static page | https://imccalculadora.app/ | README anchor + OCI url label |
 | HF Space (iamnazzal) | `iamnazzal/imc-calculadora`: a static bilingual BMI calculator page | https://imccalculadora.app/ | README anchor |
 | ClawHub (nbkdevs) - the ONE skill | `bmi-calculator` / `calculadora-imc` SKILL.md: adult BMI + WHO class, child percentile note, healthy-weight range, safe wording (not medical advice). Slug `bmi-calculator` is free (404) | https://imccalculadora.app/metodologia/ | SKILL.md Links anchor + `metadata.openclaw.homepage` |
-| Smithery skills (nbkdevs) | The same SKILL.md. **Smithery API/CLI shuts down 31 Oct 2026, so this must be published by tomorrow or dropped** | same | SKILL.md anchor (dofollow) |
+| Smithery skills (nbkdevs) | The same SKILL.md. Published 30 Oct 2026 before the shutdown (see Skills below), so this stays as Live | same | SKILL.md anchor (dofollow) |
 | SourceForge | Project with the APK + README | https://imccalculadora.app/ | project homepage field |
 | Product Hunt | Launch "IMC Calculadora": a free bilingual BMI calculator with methodology | https://imccalculadora.app/ | product website field |
 | (stores, after rename) | AMO + Edge extension and CWS theme from "Built but not published" | https://imccalculadora.app/ | homepage/support/privacy fields |
@@ -113,3 +113,8 @@ Not uploaded yet (waiting for the owner): HF Space, SourceForge, Product Hunt.
 - **Listings**: extensions/STORE_LISTINGS.md (AMO, Edge, CWS theme + Spanish). Homepage https://imccalculadora.app/, support https://imccalculadora.app/contacto/. Privacy URL blank on AMO/CWS. **Edge privacy URL: the site has no privacy page** (sitemap: /, /sobre-nosotros/, /metodologia/, /peso-ideal/, /imc-embarazo/, /imc-ninos/, /app/, /contacto/). Add /privacidad/ before submitting to Edge. The branded app copy moved to app/APP_STORE_LISTING.md.
 - **Store images** (extensions/store-assets/, regenerate with make_assets.py): edge-logo-300x300.png, amo-icon-128x128.png, screenshot-{1-adult,2-child,3-pregnancy,4-history}-1280x800.png and -640x400.png, promo-small-440x280.png. Theme images are in theme/mist-meadow-screenshot-1280x800.png, theme/mist-meadow-screenshot-640x400.png and theme/mist-meadow-small-promo-440x280.png.
 - **Tracking sheet: not written.** The brief's sheet (1Z1gOCkS…, tab gid 62226115 "Softrank") is titled "Ultimate Backlinks Sheet for Ore Finder" and has only Ore Finder rows. A separate "Ultimate Baclinks Sheet For IMC" (1XJMEa6V…, tab Softrank gid 716951480) has a different Amazon ASIN (B0HCPB22ZX, not B0HM6VJWH3), empty Item URLs and Indexed/Not Indexed statuses. I couldn't confirm which sheet is right, so nothing was written. The rows are ready in /workspace/softrank/sheet-rows/softrank-rows-2026-10-30.csv, plus GitHub and the HF Space.
+
+
+## Smithery check (3 Nov 2026, PKT)
+
+- Smithery entries above that were Live are kept as Live (Nazzal's rule: only pending Smithery entries are removed). As of 3 Nov 2026 every `smithery.ai/skills/...` page, including the whole `/skills` section, returns HTTP 404 "Not found · Smithery" after Smithery's 31 Oct shutdown (https://smithery.ai/future), so the link no longer resolves. Nazzal to decide whether to drop these rows too.
