@@ -118,3 +118,21 @@ Not uploaded yet (waiting for the owner): HF Space, SourceForge, Product Hunt.
 ## Smithery check (3 Nov 2026, PKT)
 
 - Smithery entries above that were Live are kept as Live (Nazzal's rule: only pending Smithery entries are removed). As of 3 Nov 2026 every `smithery.ai/skills/...` page, including the whole `/skills` section, returns HTTP 404 "Not found · Smithery" after Smithery's 31 Oct shutdown (https://smithery.ai/future), so the link no longer resolves. Nazzal to decide whether to drop these rows too.
+
+
+## Link check 4 Nov 2026 (PKT)
+
+Findings only (no sheet):
+- LIVE Libraries io (Python Package, Nofollow) https://libraries.io/pypi/imc-calculadora
+- LIVE PyPI Stats (Python Package, Dofollow) https://pypistats.org/packages/imc-calculadora
+- LIVE Libraries io (Rust package, Nofollow) https://libraries.io/cargo/imc-calculadora
+- LIVE Docs rs (Rust package, Dofollow) https://docs.rs/imc-calculadora/latest/imc_calculadora/index.html
+- LIVE Docs rs (Rust package, Dofollow) https://docs.rs/crate/imc-calculadora/latest
+- LIVE Libraries io (NPM Package, Nofollow) https://libraries.io/npm/imc-calculadora
+- LIVE NPM io (NPM Package, Dofollow) https://npm.io/package/imc-calculadora
+- LIVE Libraries io (Dart Package, Nofollow) https://libraries.io/pub/imc_calculadora
+- LIVE Libraries io (C Package, Nofollow) https://libraries.io/nuget/ImcCalculadora
+- LIVE Libraries io (Ruby Package, Nofollow) https://libraries.io/rubygems/imc_calculadora
+- LIVE Libraries io (Php Package, Nofollow) https://libraries.io/packagist/imccalculadora%2Fimc-calculadora
+- Couldn't verify: thepopularapps.com/apps/imc-calculadora and thegreatapps.com/apps/imc-calculadora (login/Cloudflare page).
+- socket.dev: Cloudflare 403 from curl, couldn't verify (not added).
